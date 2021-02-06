@@ -1,55 +1,56 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import TimePicker from 'react-time-picker';
+import { getURL } from './../helpers';
 
-const Rejected = ({}) => {
+const Rejected = ({today}) => {
 const history = useHistory();
 const [data, setData] = useState([]);
+const [time, setTime] = useState('')
 const [booking, setBooking] = useState('');
 const [hour, setHour] = useState('');
 const loggedIn = sessionStorage.getItem('loggedIn');
 const user = JSON.parse(sessionStorage.getItem('user'))
 
-
-
-
-const onDel = async () => {
-    let res;
-    const { id } = JSON.parse(sessionStorage.getItem('user'));
-    history.push('/me');
-     res =  await fetch(`${process.env.REACT_APP_API}/del`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({ booking, id, hour }),
-      });
-}
-
+const URL = getURL();
 
 const onErase = async () => {
     let res;
     const { id } = JSON.parse(sessionStorage.getItem('user'));
     history.push('/me');
-     res =  await fetch(`${process.env.REACT_APP_API}/erase`, {
-        method: 'PATCH',
+     res =  await fetch(`http://localhost:4000/erase`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
         },
         credentials: 'include',
-        body: JSON.stringify({ booking, id, hour }),
+        body: JSON.stringify({ id }),
       });
 }
 
+
+const changeHour = async () => {
+    let res;
+    const { id } = JSON.parse(sessionStorage.getItem('user'));
+    history.push('/me');
+     res =  await fetch(`http://localhost:4000/changed`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({ booking, id, time }),
+      });
+}
 
 
 
 const onClick = async ({}) => {
     let res;
     const { id } = JSON.parse(sessionStorage.getItem('user'));
-     res =  await fetch(`${process.env.REACT_APP_API}/info/${id}`, {
+     res =  await fetch(`http://localhost:4000/info/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -65,10 +66,11 @@ const onClick = async ({}) => {
 
 return(
 <div> <button type="button" onClick={onClick}> Wyświetl rezerwacje </button> 
-<button type="button" onClick={onDel}> Usuń rezerwacje </button> 
-<button type="button" onClick={onErase}> Usuń godzine </button> 
-<h1> Data rezerwacji: {booking}</h1>
-<h1> Godzina rezerwacji: {hour}</h1> 
+<button type="button" onClick={onErase}> Usuń rezerwacje </button> 
+<button type="button" onClick={changeHour}> Zmień godzine </button> 
+<TimePicker onChange={setTime} value={time} minTime="10:00:00"maxTime="18:00:00" /> 
+<h1> Data rezerwacji: {booking} </h1>
+<h1> Godzina rezerwacji: {hour} </h1> 
 </div>
 )}
 

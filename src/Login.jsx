@@ -1,7 +1,9 @@
 import React, { useEffect, useReducer, useState } from 'react';
 import cogoToast from 'cogo-toast';
-import { useHistory } from 'react-router-dom';
+import {Link, useHistory } from 'react-router-dom';
+import Forgotpassword  from './components/Forgotpassword';
 import obrazek from "./logo.svg";
+import { getURL } from './helpers';
 
 
 const initial = { loading: false, error: '' };
@@ -25,7 +27,7 @@ const validateFields = (fields) => {
 
 
 const Login = () => {
-  const [state, dispatch] = useReducer(appReducer);
+  const [state, dispatch] = useReducer(appReducer,initial);
   const [error, setError] = useState({ email: '', password: ''});
 
 const [email, setEmail] = useState('');
@@ -48,11 +50,11 @@ const onChange = ({ target }) => {
       return;
     } 
 
-    let res;
-    try {
-      dispatch({ type: 'LOADING', payload: true });
+    dispatch({ type: 'LOADING', payload: true });
       state.loading && cogoToast.loading("loading");
-    res = await fetch(`${process.env.REACT_APP_API}/login`, {
+
+    try {
+     const res = await fetch(`http://localhost:4000/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -62,11 +64,9 @@ const onChange = ({ target }) => {
       body: JSON.stringify({ email, password })
     });
     dispatch({ type: 'LOADING', payload: false });
-    if(res.status > 300 ) return;
+    if(res?.status > 300 ) return;
     const data = await res.json();
     setUser(data.user);
-    debugger;
-    history.push("/");
     } catch(error) {
       dispatch({ type: 'ERROR', payload: true });
     }
@@ -77,6 +77,7 @@ const onChange = ({ target }) => {
       cogoToast.success("Success login")
       sessionStorage.setItem('loggedIn', true);
       sessionStorage.setItem('user', JSON.stringify(user));
+      window.location.href = "/"
     }
   }, [user])
 
@@ -94,11 +95,12 @@ const onChange = ({ target }) => {
               {error.email && <span style={{color: "red", marginTop: '5px'}}>Email jest wymagany</span>}
             </div>
            <div>
-            <label hmlFor="pas">Podaj hasło: </label>
-            <input id="pas" className="pas" name="password" type="text" onChange={onChange} />
+            <label htmlFor="pas">Podaj hasło: </label>
+            <input id="pas" className="pas" type="password" name="password" onChange={onChange} />
             {error.password && <span style={{color: "red", marginTop: '5px'}}>Hasło jest wymagane</span>}
+            <Link to="/forgot"> <button type="button"> Zapomniałem hasła </button> </Link> 
           </div>
-          <input className="send"type="submit" value="Send"/>
+          <input className="send"type="submit" value="Log in"/>
           </form>
         </header>
       </div>

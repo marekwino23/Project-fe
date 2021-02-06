@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import obrazek from "./logo.svg";
 import { useHistory, useLocation } from 'react-router-dom';
 import cogoToast from 'cogo-toast';
+import Select from 'react-select'
+import { getURL } from './helpers';
 
 const Registration = () => {
   const history = useHistory();
@@ -9,37 +11,64 @@ const Registration = () => {
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [email, setEmail] = useState('');
+  const [type, setType] = useState('');
   const [password, setPassword] = useState('');
-  const [data, setData] = useState('');
+  const [emailAvailable, setEmailAvailable] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [invalidFields, setInvalidFields] = useState({});
 
 
   const onChange = ({ target }) => {
     target.name === "name" && setName(target.value);
     target.name === "surname" && setSurname(target.value);
-    target.name === "email" && setEmail(target.value);
+    if(target.name === "email") {
+      emailAvailable.hasEmail && setEmailAvailable({});
+      setEmail(target.value);
+    }
     target.name === "password" && setPassword(target.value);
+  }
+
+const handleChange = e => {
+  setType(e.target.value)
+  console.log(e.target.value)
+}
+
+
+
+  const isFormvValid=() =>{
+    let isValid = true;
+    let invalidFields = {};
+    ['name','surname','email', 'password'].forEach(field => {
+     if([field] === '') {
+       invalidFields[field] = 'field can not be empty';
+       isValid = false;
+     }
+    });
+    setInvalidFields(invalidFields);
+    return isValid;
   }
 
 
   const onSubmit = async (e) => {
     e.preventDefault();
     let res;
+    if(!isFormvValid) return;
     try {
       setLoading(true);
       cogoToast.loading("Loading")
-    res = await fetch(`${process.env.REACT_APP_API}/register`, {
+    res = await fetch(`http://localhost:4000/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ name,surname, email, password })
+      body: JSON.stringify({ name, surname, email, password, type })
     });
     setLoading(false);
     console.log('res: ', res);
     if(res.status > 300 ) return;
     const data = await res.json();
+    console.log(data.file)
     data.status === 'success' && cogoToast.success('user was successfully creaed. You can now log in', {
       timeout: 5000
     });
@@ -53,24 +82,54 @@ const Registration = () => {
    timeout: 500
  });
 
+ const checkEmailAvailable = async () => {
+  if(!email) return;
+  const res = await fetch('http://localhost:4000/checkEmail', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email })
+  });
+  const data = await res.json();
+  setEmailAvailable(data);
+}
+
+
     return (
       <div className="App">
         <header className="App-header">
         <img src={obrazek} alt="react"/>
           <form onSubmit={onSubmit}>
-              <label>Podaj Imie</label>
-           <input className="name" name="name" value={name} onChange={onChange} type="text"/>
-           <br></br>
-           <label> Podaj Nazwisko</label>
-           <input className="surname" name="surname" value={surname} onChange={onChange} type="text"/>
-           <br></br>
-           <label>Podaj emaila</label>
-           <input className="email" name="email" value={email} onChange={onChange} type="email"/>
-           <br></br>
-           <label>Podaj hasło</label>
-           <input className="password" name="password" value={password} onChange={onChange} type="password"/>
-           <br></br>
-           <input className="send" type="submit" value="Send"/>
+              <div className="field">
+                <label htmlFor="">Podaj Imie</label>
+                <input className="name" name="name" value={name} onChange={onChange} type="text" required/>
+                {invalidFields.name && <p className="error">{invalidFields.name}</p>}
+              </div>
+              <div className="field">
+                <label htmlFor=""> Podaj Nazwisko</label>
+                <input className="surname" name="surname" value={surname} onChange={onChange} type="text" required/>
+                {invalidFields.surname && <p className="error">{invalidFields.surname}</p>}
+              </div>
+              <div className="field">
+                <label htmlFor="">Podaj emaila</label>
+                <input className="email" name="email" value={email} onChange={onChange} type="email" required/>
+                {invalidFields.email && <p className="error">{invalidFields.email}</p>}
+                {emailAvailable.status && <p>{emailAvailable.status}</p>}
+                <input type="button" className="send" value="check Email" onClick={checkEmailAvailable} disabled={!email} />
+              
+              </div>
+              <div className="field">
+                <label>Podaj hasło</label>
+                <input className="password" name="password" value={password} onChange={onChange} type="password" required/>
+                {invalidFields.password && <p className="error">{invalidFields.password}</p>}
+              </div>
+              <select value={type} onChange={handleChange}>
+              <option value="select"></option>
+              <option value="Administator">Administrator</option>
+              <option value="User">User</option>
+              </select>
+            <input className="send" type="submit" disabled={Object.keys(invalidFields).length} value="Register"/>
           </form>
         </header>
       </div>
