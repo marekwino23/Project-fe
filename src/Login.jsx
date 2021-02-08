@@ -31,6 +31,7 @@ const Login = () => {
   const [error, setError] = useState({ email: '', password: ''});
 
 const [email, setEmail] = useState('');
+const [type, setType] = useState('');
 const [password, setPassword] = useState('');
 const [user, setUser] = useState({});
 
@@ -41,7 +42,7 @@ const onChange = ({ target }) => {
   target.name === "email" ? setEmail(target.value) : setPassword(target.value);
 }
 
-  const onSubmit = async (e) => {
+  const onSubmit = async (e,type) => {
     e.preventDefault();
 
     const v = validateFields({ email, password });
@@ -67,6 +68,8 @@ const onChange = ({ target }) => {
     if(res?.status > 300 ) return;
     const data = await res.json();
     setUser(data.user);
+    sessionStorage.setItem('type', data.type)
+    console.log(type)
     } catch(error) {
       dispatch({ type: 'ERROR', payload: true });
     }

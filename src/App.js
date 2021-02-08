@@ -16,6 +16,7 @@ import Booked from './components/Booked';
 import Rejected from './components/Rejected';
 import Validation from './components/Validation'
 import Sale from './components/Sale'
+import List from './components/List'
 
 function App() {
  
@@ -33,6 +34,7 @@ function App() {
             <PrivateRoute exact path="/sale" component={Sale} isAuthenticated={!!sessionStorage.getItem('loggedIn')}/>
             <PrivateRoute exact path="/my" component={Me} isAuthenticated={!!sessionStorage.getItem('loggedIn')}/>
             <PrivateRoute exact path="/book" component={Booked} isAuthenticated={!!sessionStorage.getItem('loggedIn')}/>
+            <PrivateRoute exact path="/list" component={List} isAuthenticated={!!sessionStorage.getItem('loggedIn')}/>
             <PrivateRoute exact path="/reject" component={Rejected} isAuthenticated={!!sessionStorage.getItem('loggedIn')}/>
           </Switch>
         </main>

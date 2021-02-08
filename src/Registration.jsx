@@ -11,7 +11,6 @@ const Registration = () => {
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [email, setEmail] = useState('');
-  const [type, setType] = useState('');
   const [password, setPassword] = useState('');
   const [emailAvailable, setEmailAvailable] = useState({});
   const [loading, setLoading] = useState(false);
@@ -28,12 +27,6 @@ const Registration = () => {
     }
     target.name === "password" && setPassword(target.value);
   }
-
-const handleChange = e => {
-  setType(e.target.value)
-  console.log(e.target.value)
-}
-
 
 
   const isFormvValid=() =>{
@@ -62,7 +55,7 @@ const handleChange = e => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ name, surname, email, password, type })
+      body: JSON.stringify({ name, surname, email, password })
     });
     setLoading(false);
     console.log('res: ', res);
@@ -124,11 +117,6 @@ const handleChange = e => {
                 <input className="password" name="password" value={password} onChange={onChange} type="password" required/>
                 {invalidFields.password && <p className="error">{invalidFields.password}</p>}
               </div>
-              <select value={type} onChange={handleChange}>
-              <option value="select"></option>
-              <option value="Administator">Administrator</option>
-              <option value="User">User</option>
-              </select>
             <input className="send" type="submit" disabled={Object.keys(invalidFields).length} value="Register"/>
           </form>
         </header>
