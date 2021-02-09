@@ -1,5 +1,5 @@
 import userEvent from '@testing-library/user-event';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PrivateRoute  from './PrivateRoute';
 import Booked from './Booked';
 import { Link, useHistory } from 'react-router-dom';
@@ -75,21 +75,21 @@ const onClick = async () => {
     }
   }
      
-const onGet = async ({}) => {
-  let res;
-  const { id } = JSON.parse(sessionStorage.getItem('user'));
-   res =  await fetch(`http://localhost:4000/info/${id}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-    });
-    const data = await res.json()
+useEffect(async() => {
+    let res;
+    const { id } = JSON.parse(sessionStorage.getItem('user'))
+    res =  await fetch(`http://localhost:4000/info/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      })
+      const data = await res.json()
     console.log('data: ' , data);
     setBooking(data[0].rezerwacja);
-    setHour(data[0].godzina);
-}
+    setHour(data[0].godzina); 
+},[]);
 
 
 const onAssemble = async ({}) => {
@@ -147,7 +147,7 @@ return(
 <td> Godzina rezerwacji: {hour } </td>
 </tr>
 <tr>
-<td> <button type="button" onClick={onGet}> Pobierz rezerwacje </button> </td>
+{/* <td> <button type="button" onClick={onGet}> Pobierz rezerwacje </button> </td> */}
 </tr>
 </table>
 </div>

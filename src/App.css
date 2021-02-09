@@ -14,7 +14,7 @@ h1{
 }
 
 table{
-border: white dashed 4px;
+border: white solid 2px;
 color: white;
 width: 400px;
 height: 400px;
@@ -50,6 +50,29 @@ button{
 
 h2{
   color:white;
+}
+
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 40%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #3bd198;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
 }
 
 .name{

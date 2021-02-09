@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import TimePicker from 'react-time-picker';
 import { getURL } from './../helpers';
@@ -45,27 +45,26 @@ const changeHour = async () => {
       });
 }
 
-
-
-const onClick = async ({}) => {
-    let res;
-    const { id } = JSON.parse(sessionStorage.getItem('user'));
-     res =  await fetch(`http://localhost:4000/info/${id}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-      });
-      const data = await res.json()
-      console.log('data: ' , data);
-      setBooking(data[0].rezerwacja);
-      setHour(data[0].godzina);
-
-  }
-
+useEffect(()=>{
+  let res;
+  const { id } = JSON.parse(sessionStorage.getItem('user'));
+   res =  fetch(`http://localhost:4000/info/${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    })
+    .then(response => response.json())
+    .then(data => {
+    console.log('data: ' , data);
+    setBooking(data[0].rezerwacja);
+    setHour(data[0].godzina);
+    })
+},[])
+  
 return(
-<div> <button type="button" onClick={onClick}> Wyświetl rezerwacje </button> 
+<div>
 <button type="button" onClick={onErase}> Usuń rezerwacje </button> 
 <button type="button" onClick={changeHour}> Zmień godzine </button> 
 <TimePicker onChange={setTime} value={time} minTime="10:00:00"maxTime="18:00:00" /> 
