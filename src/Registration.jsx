@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import obrazek from "./logo.svg";
 import { useHistory, useLocation } from 'react-router-dom';
 import cogoToast from 'cogo-toast';
-import Select from 'react-select'
 import { getURL } from './helpers';
 
 const Registration = () => {
@@ -61,7 +60,6 @@ const Registration = () => {
     console.log('res: ', res);
     if(res.status > 300 ) return;
     const data = await res.json();
-    console.log(data.file)
     data.status === 'success' && cogoToast.success('user was successfully creaed. You can now log in', {
       timeout: 5000
     });

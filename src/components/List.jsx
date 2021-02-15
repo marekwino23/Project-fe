@@ -1,7 +1,8 @@
-import { cleanup } from '@testing-library/react';
 import React, { useState,useEffect } from 'react';
+import {Link, useHistory } from 'react-router-dom';
 
 const List = () =>{
+  const history = useHistory()
   const[users, setUsers] = useState([])
     useEffect(() => {
         fetch(`http://localhost:4000/list`, {
@@ -20,8 +21,31 @@ const List = () =>{
         
     },[]);
 
-    const deleteUser = () =>{
+    const onEdit = (id) => {
+      console.log(id)
+      history.push({pathname:`/edit/${id}`})
+    }
 
+
+    const deleteUser = (id) => {
+      console.log('user id: ', id);
+      fetch(`http://localhost:4000/deleteUser`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({id }),
+        credentials: 'include',
+      })
+      .then(response => response.json())
+      .then(data => {
+        if(data.status === "success"){
+          alert("delete success")
+        }
+        else{
+          alert("failed")
+        }
+      }) 
     }
 
 return(
@@ -49,11 +73,11 @@ return(
     <td>{user.rezerwacja}</td>
     <td>{user.godzina}</td>
     <td>{user.type}</td>
+    <input type="button" onClick={() => deleteUser(user.id)} value="delete user"></input>
+    <input type="button"  onClick={() => onEdit(user.id)} value="edit user"></input>
   </tr>
   ))}
 </tbody>
-<input type="button" onClick={() => deleteUser} value="delete user"></input>
-<input type="button" value="edit user"></input>
   </table>
 </div>
 )}

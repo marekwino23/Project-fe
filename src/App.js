@@ -17,6 +17,7 @@ import Rejected from './components/Rejected';
 import Validation from './components/Validation'
 import Sale from './components/Sale'
 import List from './components/List'
+import EditUser from './components/EditUser'
 
 function App() {
  
@@ -29,6 +30,7 @@ function App() {
             <Route exact path="/login" component={Login} />
             <Route exact path="/forgot" component={Forgotpassword} />
             <Route exact path="/valid" component={Validation} />
+            <Route exact path="/edit/:id" component={EditUser} />
             <PrivateRoute exact path="/me" component={Data} isAuthenticated={!!sessionStorage.getItem('loggedIn')}/>
             <PrivateRoute exact path="/contact" component={Contact} isAuthenticated={!!sessionStorage.getItem('loggedIn')}/>
             <PrivateRoute exact path="/sale" component={Sale} isAuthenticated={!!sessionStorage.getItem('loggedIn')}/>
