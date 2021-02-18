@@ -23,7 +23,8 @@ const List = () =>{
 
     const onEdit = (id) => {
       console.log(id)
-      history.push({pathname:`/edit/${id}`})
+      history.push({pathname:`/edit/${id}`
+    })
     }
 
 

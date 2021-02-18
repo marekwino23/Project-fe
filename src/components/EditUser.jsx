@@ -1,11 +1,17 @@
 import React, { useState,useEffect } from 'react';
+import {useHistory, useParams} from "react-router-dom"
+import {useLocation} from "react-router-dom"
+
 
 const EditUser = () => {
+  const history = useHistory()
+  const { id } = useParams();
+  console.log(id)
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  console.log("hello")
+  console.log("hello");
   const[user, setUser] = useState({})
     useEffect(() => {
         fetch(`http://localhost:4000/getuserData`, {
@@ -35,21 +41,21 @@ const EditUser = () => {
       target.name === "password" && setPassword(target.value);
     }
 
-
     const onClick = () => {
-      console.log(this.history.params)
+      console.log(id)
       fetch(`http://localhost:4000/editUser`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({name,surname,email,password}),
+        body: JSON.stringify({id,name,surname,email,password}),
         credentials: 'include',
       })
       .then(response => response.json())
       .then(data => {
         if(data.status === "success"){
           alert("update success")
+          history.push({pathname: "/list"})
         }
         else{
           alert("failed")
@@ -64,20 +70,20 @@ return(
           <form onSubmit={onClick}>
               <div className="field">
                 <label htmlFor="">Podaj Imie</label>
-                  <input className="name" name="name" onchange={onChange} value={user.name} type="text" required/>
+                  <input className="name" name="name" onChange={onChange} value={name} type="text" required/>
               </div>
               <div className="field">
                 <label htmlFor=""> Podaj Nazwisko</label>
-                <input className="surname" name="surname" onchange={onChange} value={user.surname} type="text" required/>
-              
+                <input className="surname" name="surname" onChange={onChange} value={user.surname} type="text" required/>
+             
               </div>
               <div className="field">
                 <label htmlFor="">Podaj emaila</label>
-                <input className="email" name="email" onchange={onChange} value={user.email} type="email" required/>
+                <input className="email" name="email" onChange={onChange} value={user.email} type="email" required/>
               </div>
               <div className="field">
                 <label>Podaj hasło</label>
-                <input className="password" name="password" onchange={onChange} value={user.password}  type="password" required/>
+                <input className="password" name="password" onChange={onChange} value={user.password}  type="password" required/>
                 <input className="send" type="submit" value="Update"/>
               </div>
           </form>          
