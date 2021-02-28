@@ -84,6 +84,7 @@ const onChange = ({ target }) => {
 
     return (
       <div className="App">
+        <h1>Rejestracja</h1>
         <header className="App-header">
         <div class="container">
         <form onSubmit = {onSubmit}>
