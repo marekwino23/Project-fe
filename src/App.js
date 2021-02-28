@@ -9,7 +9,7 @@ import Registration from './Registration';
 import Login from './Login';
 import Data  from './components/Data';
 import Contact  from './components/Contact';
-import ForgotPassword  from './components/ForgotPassword';
+import Forgot  from './components/Forgot';
 import Me  from './components/Me';
 import PrivateRoute  from './components/PrivateRoute';
 import Booked from './components/Booked';
@@ -28,7 +28,7 @@ function App() {
           <Switch>
             <Route exact path="/register" component={Registration}/>
             <Route exact path="/login" component={Login} />
-            <Route exact path="/forgot" component={ForgotPassword} />
+            <Route exact path="/forgot" component={Forgot} />
             <Route exact path="/valid" component={Validation} />
             <Route exact path="/edit/:id" component={EditUser} />
             <PrivateRoute exact path="/me" component={Data} isAuthenticated={!!sessionStorage.getItem('loggedIn')}/>

@@ -1,6 +1,6 @@
 import React,{ useState } from 'react';
 
- const ForgotPassword = () => {
+ const Forgot = () => {
  const [email, setEmail] = useState('');
 
   const onClick = async () => {
@@ -29,4 +29,4 @@ import React,{ useState } from 'react';
     </div>
       )
     }
-    export default ForgotPassword;
+    export default Forgot;
