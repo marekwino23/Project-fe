@@ -1,7 +1,5 @@
 import React, { useState,useEffect } from 'react';
 import {useHistory, useParams} from "react-router-dom"
-import {useLocation} from "react-router-dom"
-
 
 const EditUser = () => {
   const history = useHistory()

@@ -1,22 +1,14 @@
-import userEvent from '@testing-library/user-event';
+
 import React, { useEffect, useState } from 'react';
-import PrivateRoute  from './PrivateRoute';
-import Booked from './Booked';
-import { Link, useHistory } from 'react-router-dom';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,} from "react-router-dom";
+import { useHistory } from 'react-router-dom';
   import { getURL } from './../helpers';
 
 const Data = ({}) => {
 const history = useHistory();  
-const [data, setData] = useState([]);
 const [booking, setBooking] = useState('');
 const [hour, setHour] = useState('');
 const [as, setAs] = useState('')
 const [read, setRead] = useState('')
-const loggedIn = sessionStorage.getItem('loggedIn');
 const user = JSON.parse(sessionStorage.getItem('user'));
 const[val, setVal] = React.useState(user.email)
 const handleChange = (e) => {
@@ -26,9 +18,6 @@ const handleChange = (e) => {
 const inputChange = (e) => {
   setRead(e.target.value)
 }
-
-
-const URL = getURL();
 
 const onClick = async () => {
     let res;
@@ -75,21 +64,23 @@ const onClick = async () => {
     }
   }
      
-useEffect(async() => {
-    let res;
-    const { id } = JSON.parse(sessionStorage.getItem('user'))
-    res =  await fetch(`http://localhost:4000/info/${id}`, {
+useEffect(() => {
+    async function fetchData() {
+      const res =  await fetch(`http://localhost:4000/info/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
         credentials: 'include',
       })
-      const data = await res.json()
+      return await res.json();
+    }
+    const { id } = JSON.parse(sessionStorage.getItem('user'))
+    const data = fetchData();
     console.log('data: ' , data);
     setBooking(data[0].rezerwacja);
     setHour(data[0].godzina); 
-},[]);
+},[ fetchData ]);
 
 
 const onAssemble = async ({}) => {

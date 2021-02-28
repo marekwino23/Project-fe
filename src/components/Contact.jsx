@@ -1,7 +1,4 @@
 import React from 'react';
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
-import Maps from './Maps';
-
 
 const Contact = () => {
 return(

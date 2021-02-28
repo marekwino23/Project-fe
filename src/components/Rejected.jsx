@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import TimePicker from 'react-time-picker';
-import { getURL } from './../helpers';
 
-const Rejected = ({today}) => {
+const Rejected = () => {
 const history = useHistory();
-const [data, setData] = useState([]);
 const [time, setTime] = useState('')
 const [booking, setBooking] = useState('');
 const [hour, setHour] = useState('');
-const loggedIn = sessionStorage.getItem('loggedIn');
-const user = JSON.parse(sessionStorage.getItem('user'))
 
-const URL = getURL();
 
 const onErase = async () => {
     let res;
@@ -46,9 +41,8 @@ const changeHour = async () => {
 }
 
 useEffect(()=>{
-  let res;
   const { id } = JSON.parse(sessionStorage.getItem('user'));
-   res =  fetch(`http://localhost:4000/info/${id}`, {
+  fetch(`http://localhost:4000/info/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

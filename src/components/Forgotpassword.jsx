@@ -1,11 +1,10 @@
 import React,{ useState } from 'react';
 
- const Forgotpassword = () => {
+ const ForgotPassword = () => {
  const [email, setEmail] = useState('');
 
   const onClick = async () => {
-  let res;
-  res = await fetch(`http://localhost:4000/send`, {
+    await fetch(`http://localhost:4000/send`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -30,4 +29,4 @@ import React,{ useState } from 'react';
     </div>
       )
     }
-    export default Forgotpassword;
+    export default ForgotPassword;

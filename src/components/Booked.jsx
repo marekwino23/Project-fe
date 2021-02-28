@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import TimePicker from 'react-time-picker';
 import cogoToast from 'cogo-toast';
-import DatePicker, { setDefaultLocale } from "react-datepicker";
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useHistory } from 'react-router-dom';
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer, useState } from 'react';
 import cogoToast from 'cogo-toast';
 import {Link, useHistory } from 'react-router-dom';
-import Forgotpassword  from './components/Forgotpassword';
+import Forgotpassword  from './components/ForgotPassword';
 import obrazek from "./logo.svg";
 import { getURL } from './helpers';
 

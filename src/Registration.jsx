@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
-import obrazek from "./logo.svg";
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import cogoToast from 'cogo-toast';
-import { getURL } from './helpers';
 
 const Registration = () => {
   const history = useHistory();
-  const location = useLocation();
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [email, setEmail] = useState('');

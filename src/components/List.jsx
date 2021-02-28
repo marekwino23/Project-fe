@@ -1,9 +1,9 @@
 import React, { useState,useEffect } from 'react';
-import {Link, useHistory } from 'react-router-dom';
+import {useHistory } from 'react-router-dom';
 
 const List = () =>{
   const history = useHistory()
-  const[users, setUsers] = useState([])
+  const[users, setUsers] = useState([]);
     useEffect(() => {
         fetch(`http://localhost:4000/list`, {
             method: 'GET',
@@ -17,9 +17,9 @@ const List = () =>{
             console.log(data)
               console.log(users)
               setUsers(data)
-          }) 
+          }); 
         
-    },[]);
+    },[ users ]);
 
     const onEdit = (id) => {
       console.log(id)
