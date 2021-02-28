@@ -72,7 +72,7 @@ const Registration = () => {
 
  const checkEmailAvailable = async () => {
   if(!email) return;
-  const res = await fetch('http://localhost:4000/checkEmail', {
+  const res = await fetch('https://sheltered-oasis-25992.herokuapp.com/checkEmail', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
