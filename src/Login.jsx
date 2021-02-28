@@ -29,7 +29,6 @@ const validateFields = (fields) => {
 const Login = () => {
   const [state, dispatch] = useReducer(appReducer,initial);
   const [error, setError] = useState({ email: '', password: ''});
-
 const [email, setEmail] = useState('');
 const [type, setType] = useState('');
 const [password, setPassword] = useState('');
@@ -90,7 +89,31 @@ const onChange = ({ target }) => {
     return (
       <div className="App">
         <header className="App-header">
-        <img src={obrazek} alt="react"/>
+        <div class="container">
+        <form onSubmit = {onSubmit}>
+    <div className="row">
+      <div className="col-25">
+        <label htmlfor="fname">Podaj emaila</label>
+      </div>
+      <div className="col-75">
+      <input id="email" className="log" name="email" type="text" onChange={onChange}/>
+              {error.email && <span style={{color: "red", marginTop: '5px'}}>Email jest wymagany</span>}
+      </div>
+    </div>
+    <div className="row">
+      <div className="col-25">
+        <label htmlfor="lname">Podaj hasło</label>
+      </div>
+      <div className="col-75">
+      <input id="pas" className="pas" type="password" name="password" onChange={onChange} />
+            {error.password && <span style={{color: "red", marginTop: '5px'}}>Hasło jest wymagane</span>}
+            <Link to="/forgot"> <button type="button"> Zapomniałem hasła </button> </Link> 
+      </div>
+    </div>
+    <input className="send"type="submit" value="Log in"/>
+  </form>
+</div>
+        {/* <img src={obrazek} alt="react"/>
           <form onSubmit = {onSubmit}>
             <div>
               <label htmlFor="email">Podaj email: </label>
@@ -104,7 +127,7 @@ const onChange = ({ target }) => {
             <Link to="/forgot"> <button type="button"> Zapomniałem hasła </button> </Link> 
           </div>
           <input className="send"type="submit" value="Log in"/>
-          </form>
+          </form> */}
         </header>
       </div>
     );

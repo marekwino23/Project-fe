@@ -89,34 +89,54 @@ const Registration = () => {
 
     return (
       <div className="App">
+        <h1>Rejestracja</h1>
         <header className="App-header">
-        <img src={obrazek} alt="react"/>
-          <form onSubmit={onSubmit}>
-              <div className="field">
-                <label htmlFor="">Podaj Imie</label>
-                <input className="name" name="name" value={name} onChange={onChange} type="text" required/>
-                {invalidFields.name && <p className="error">{invalidFields.name}</p>}
-              </div>
-              <div className="field">
-                <label htmlFor=""> Podaj Nazwisko</label>
-                <input className="surname" name="surname" value={surname} onChange={onChange} type="text" required/>
-                {invalidFields.surname && <p className="error">{invalidFields.surname}</p>}
-              </div>
-              <div className="field">
-                <label htmlFor="">Podaj emaila</label>
-                <input className="email" name="email" value={email} onChange={onChange} type="email" required/>
+        <div class="container">
+        <form onSubmit={onSubmit}>
+    <div class="row">
+      <div class="col-25">
+        <label for="fname">Podaj imie</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="fname" name="name" value={name} onChange={onChange} placeholder="Your name.."/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="lname">Podaj nazwisko</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="lname" name="surname" onChange={onChange} value={surname} placeholder="Your last name.."/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="email">Podaj emaila</label>
+      </div>
+      <div class="col-75">
+      <input className="email" name="email" value={email} onChange={onChange} type="email" required/>
                 {invalidFields.email && <p className="error">{invalidFields.email}</p>}
                 {emailAvailable.status && <p>{emailAvailable.status}</p>}
                 <input type="button" className="send" value="check Email" onClick={checkEmailAvailable} disabled={!email} />
-              
-              </div>
-              <div className="field">
-                <label>Podaj hasło</label>
-                <input className="password" name="password" value={password} onChange={onChange} type="password" required/>
+                <br></br>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="password">Podaj hasło</label>
+      </div>
+      <div class="col-75">
+      <input className="password" name="password" value={password} onChange={onChange} type="password" required/>
                 {invalidFields.password && <p className="error">{invalidFields.password}</p>}
-              </div>
-            <input className="send" type="submit" disabled={Object.keys(invalidFields).length} value="Register"/>
-          </form>
+      </div>
+    </div>
+    <br></br>
+    <br></br>
+    <div class="row">
+    <input className="send" type="submit" disabled={Object.keys(invalidFields).length} value="Register"/>
+    </div>
+  </form>
+</div>
         </header>
       </div>
     );
