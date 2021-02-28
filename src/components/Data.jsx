@@ -1,7 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-  import { getURL } from './../helpers';
 
 const Data = ({}) => {
 const history = useHistory();  
@@ -80,7 +79,7 @@ useEffect(() => {
     console.log('data: ' , data);
     setBooking(data[0].rezerwacja);
     setHour(data[0].godzina); 
-},[ fetchData ]);
+},[]);
 
 
 const onAssemble = async ({}) => {
