@@ -19,7 +19,7 @@ const Booked = () => {
         const { id } = JSON.parse(sessionStorage.getItem('user'));
         const data = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
         history.push('/me');
-         res =  await fetch(`http://localhost:4000/rez`, {
+         res =  await fetch(`${process.env.REACT_APP_API}/rez`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ const Booked = () => {
 
     const onBusy = async () => {
       let res;
-       res =  await fetch(`http://localhost:4000/busy`, {
+       res =  await fetch(`${process.env.REACT_APP_API}/busy`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

@@ -50,7 +50,7 @@ const onChange = ({ target }) => {
       state.loading && cogoToast.loading("loading");
 
     try {
-     const res = await fetch(`http://localhost:4000/login`, {
+     const res = await fetch(`${process.env.REACT_APP_API}/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

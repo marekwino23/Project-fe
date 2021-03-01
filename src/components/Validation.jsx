@@ -9,9 +9,10 @@ import { useHistory } from 'react-router-dom';
 
  const history = useHistory();
 
-  const onValid = async () => {
-  let res;
-  res = await fetch(`http://localhost:4000/valid`, {
+  const onValid = async (e) => {
+    e.preventDefault();
+    let res;
+    res = await fetch(`${process.env.REACT_APP_API}/valid`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -44,7 +45,7 @@ import { useHistory } from 'react-router-dom';
 
     return (
     <div>
-       <form onSubmit={onValid} method="post" action="http://localhost:4000/valid">
+       <form onSubmit={onValid} method="post">
        <label>Podaj email: </label>
        <input id="email" name="email" type="text" onChange={onChange}/>
        <label>Podaj kod do zmiany hasła: </label>

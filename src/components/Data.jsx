@@ -22,7 +22,7 @@ const onClick = async () => {
     let res;
     const { id } = JSON.parse(sessionStorage.getItem('user'));
     try {
-      res =  await fetch(`http://localhost:4000/update`, {
+      res =  await fetch(`${process.env.REACT_APP_API}/update`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ const onClick = async () => {
     let res;
     const { id } = JSON.parse(sessionStorage.getItem('user'));
     try {
-      res =  await fetch(`http://localhost:4000/improve`, {
+      res =  await fetch(`${process.env.REACT_APP_API}/improve`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ const onClick = async () => {
      
 useEffect(() => {
     async function fetchData() {
-      const res =  await fetch(`http://localhost:4000/info/${id}`, {
+      const res =  await fetch(`${process.env.REACT_APP_API}/info/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -85,7 +85,7 @@ useEffect(() => {
 const onAssemble = async ({}) => {
   let res;
   const { id } = JSON.parse(sessionStorage.getItem('user'));
-   res =  await fetch(`http://localhost:4000/assemble/${id}`, {
+   res =  await fetch(`${process.env.REACT_APP_API}/assemble/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -101,7 +101,7 @@ const onAssemble = async ({}) => {
 const onDownload = async ({}) => {
   let res;
   const { id } = JSON.parse(sessionStorage.getItem('user'));
-   res =  await fetch(`http://localhost:4000/${id}`, {
+   res =  await fetch(`${process.env.REACT_APP_API}/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

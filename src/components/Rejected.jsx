@@ -13,7 +13,7 @@ const Rejected = () => {
 //     let res;
 //     const { id } = JSON.parse(sessionStorage.getItem('user'));
 //     history.push('/me');
-//      res =  await fetch(`http://localhost:4000/erase`, {
+//      res =  await fetch(`${process.env.REACT_APP_API}/erase`, {
 //         method: 'PUT',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ const Rejected = () => {
 //     let res;
 //     const { id } = JSON.parse(sessionStorage.getItem('user'));
 //     history.push('/me');
-//      res =  await fetch(`http://localhost:4000/changed`, {
+//      res =  await fetch(`${process.env.REACT_APP_API}/changed`, {
 //         method: 'PUT',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ const Rejected = () => {
 //
 // useEffect(()=>{
 //   const { id } = JSON.parse(sessionStorage.getItem('user'));
-//   fetch(`http://localhost:4000/info/${id}`, {
+//   fetch(`${process.env.REACT_APP_API}/info/${id}`, {
 //       method: 'GET',
 //       headers: {
 //         'Content-Type': 'application/json',

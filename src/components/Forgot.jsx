@@ -4,7 +4,7 @@ import React,{ useState } from 'react';
  const [email, setEmail] = useState('');
 
   const onClick = async () => {
-    await fetch(`http://localhost:4000/send`, {
+    await fetch(`${process.env.REACT_APP_API}/send`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

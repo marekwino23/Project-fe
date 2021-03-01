@@ -46,7 +46,7 @@ const Registration = () => {
     try {
       setLoading(true);
       cogoToast.loading("Loading")
-    res = await fetch(`http://localhost:4000/register`, {
+    res = await fetch(`${process.env.REACT_APP_API}/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ const Registration = () => {
 
  const checkEmailAvailable = async () => {
   if(!email) return;
-  const res = await fetch('http://localhost:4000/checkEmail', {
+  const res = await fetch(`${process.env.REACT_APP_API}/checkEmail`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

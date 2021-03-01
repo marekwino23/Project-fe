@@ -5,7 +5,7 @@ const List = () =>{
   const history = useHistory()
   const[users, setUsers] = useState([]);
     useEffect(() => {
-        fetch(`http://localhost:4000/list`, {
+        fetch(`${process.env.REACT_APP_API}/list`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ const List = () =>{
 
     const deleteUser = (id) => {
       console.log('user id: ', id);
-      fetch(`http://localhost:4000/deleteUser`, {
+      fetch(`${process.env.REACT_APP_API}/deleteUser`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

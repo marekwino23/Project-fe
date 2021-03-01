@@ -7,7 +7,7 @@ export const Header = () => {
     const { name } = sessionStorage.getItem('user') ? JSON.parse(sessionStorage.getItem('user')) : { name: ''};
     const onClick = async () => {
         try {
-          await fetch(`http://localhost:4000/logout`);
+          await fetch(`${process.env.REACT_APP_API}/logout`);
           sessionStorage.clear();
           window.location.href='/login';
     

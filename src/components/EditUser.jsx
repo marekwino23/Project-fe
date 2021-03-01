@@ -9,10 +9,9 @@ const EditUser = () => {
   const [surname, setSurname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  console.log("hello");
   const[user, setUser] = useState({})
     useEffect(() => {
-        fetch(`http://localhost:4000/getuserData`, {
+        fetch(`${process.env.REACT_APP_API}/getuserData`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -41,7 +40,7 @@ const EditUser = () => {
 
     const onClick = () => {
       console.log(id)
-      fetch(`http://localhost:4000/editUser`, {
+      fetch(`${process.env.REACT_APP_API}/editUser`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
