@@ -35,12 +35,9 @@ function App() {
             <PrivateRoute exact path="/contact" component={Contact} isAuthenticated={!!sessionStorage.getItem('loggedIn')}/>
             <PrivateRoute exact path="/sale" component={Sale} isAuthenticated={!!sessionStorage.getItem('loggedIn')}/>
             <PrivateRoute exact path="/my" component={Me} isAuthenticated={!!sessionStorage.getItem('loggedIn')}/>
-            {/*<PrivateRoute exact path="/book" component={Booked} isAuthenticated={!!sessionStorage.getItem('loggedIn')}/>*/}
-            <Route exact path="/book" component={Booked}/>
+            <PrivateRoute exact path="/book" component={Booked} isAuthenticated={!!sessionStorage.getItem('loggedIn')}/>
             <PrivateRoute exact path="/list" component={List} isAuthenticated={!!sessionStorage.getItem('loggedIn')}/>
-            {/*<PrivateRoute exact path="/reject" component={Rejected} isAuthenticated={!!sessionStorage.getItem('loggedIn')}/>*/}
-            <Route exact path="/reject" component={Rejected}/>
-
+            <PrivateRoute exact path="/reject" component={Rejected} isAuthenticated={!!sessionStorage.getItem('loggedIn')}/>
           </Switch>
         </main>
         </Main>
