@@ -82,13 +82,17 @@ const Booked = () => {
     }
 
 return (
-    <div> 
-      <DatePicker
+    <div>
+        <div className="container">
+            <p className="h1"> Wybierz termin </p>
+        <DatePicker
         minDate={today}
         required
         onChange={setDate}
         selected={date}
       />
+        </div>
+        <div className="container">
       <TimePicker
         onChange={onChangeTime}
         disabled={date ? false : true}
@@ -97,14 +101,17 @@ return (
         required
         value={time}
       />
-      <select value={data} onChange={handleChange}>
+        </div>
+<div className="container">
+      <select className="form-control" value={data} onChange={handleChange}>
         <option></option>
         <option>Obcinanie włosów-30zł</option>
         <option>Farbowanie włosów-40zł</option>
         <option>Umycie włosów-20zł</option>
       </select>
-      <button onClick={onClick}>Wybierz</button>
-      <button onClick={onBusy}>Sprawdz czy dana godzina jest wolna</button>
+    </div>
+      <button className="form-check" onClick={onClick}>Wybierz</button>
+      <button className="form-check"  onClick={onBusy}>Sprawdz czy dana godzina jest wolna</button>
       <br></br>
       <p>{items.status}</p>
     </div>

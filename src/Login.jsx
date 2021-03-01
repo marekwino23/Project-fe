@@ -85,12 +85,12 @@ const onChange = ({ target }) => {
     return (
       <div className="App">
         <header className="App-header">
-        <div class="container">
+        <div className="container">
           <p className="h1">Logowanie </p>
         <form onSubmit = {onSubmit}>
     <div className="row">
       <div className="mb-3">
-        <label htmlfor="fname">Podaj emaila</label>
+        <label htmlFor="fname">Podaj emaila</label>
       </div>
       <div className="mb-3">
       <input id="email" className="log" name="email" type="text" onChange={onChange}/>
@@ -99,7 +99,7 @@ const onChange = ({ target }) => {
     </div>
     <div className="row">
       <div className="mb-3">
-        <label htmlfor="lname">Podaj hasło</label>
+        <label htmlFor="lname">Podaj hasło</label>
       </div>
       <div className="mb-3">
       <input id="pas" className="pas" type="password" name="password" onChange={onChange} />
