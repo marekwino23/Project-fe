@@ -27,8 +27,8 @@ export const Header = () => {
     {loggedIn ? <button type="button"><Link to="/me"> Konto użytkownika</Link> </button> : null}
     {loggedIn  ? <button type="button"><Link to="/list"> Lista użytkowników</Link> </button> : null}
     {loggedIn ? <button type="button" onClick={onClick} > Wyloguj </button> : null}
-    {loggedIn ? null : <Link to="/register"> <button> Rejestracja </button> </Link>}
-    {loggedIn ? null : <Link to="/login"> <button> Logowanie </button> </Link>}
+    {loggedIn ? null : <Link to="/register"> <button style={{marginTop:"48px"}}> Rejestracja </button> </Link>}
+    {loggedIn ? null : <Link to="/login"> <button style={{marginTop:"9px"}}> Logowanie </button> </Link>}
     </div>
     </header>
     );
