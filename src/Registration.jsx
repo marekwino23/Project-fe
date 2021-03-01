@@ -72,7 +72,7 @@ const Registration = () => {
 
  const checkEmailAvailable = async () => {
   if(!email) return;
-  const res = await fetch('https://sheltered-oasis-25992.herokuapp.com/checkEmail', {
+  const res = await fetch('http://localhost:4000/checkEmail', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -86,51 +86,51 @@ const Registration = () => {
 
     return (
       <div className="App">
-        <h1>Rejestracja</h1>
         <header className="App-header">
-        <div class="container">
+        <div className="container">
+            <p className="h1">Rejestracja </p>
         <form onSubmit={onSubmit}>
-    <div class="row">
-      <div class="col-25">
-        <label for="fname">Podaj imie</label>
+    <div className="row">
+      <div className="mb-3">
+        <label htmlFor="fname" className="form-label"> Podaj imie</label>
       </div>
-      <div class="col-75">
-        <input type="text" id="fname" name="name" value={name} onChange={onChange} placeholder="Your name.."/>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-25">
-        <label for="lname">Podaj nazwisko</label>
-      </div>
-      <div class="col-75">
-        <input type="text" id="lname" name="surname" onChange={onChange} value={surname} placeholder="Your last name.."/>
+      <div className="mb-3">
+        <input type="text" id="fname" className="form-text" name="name" value={name} onChange={onChange} placeholder="Your name.."/>
       </div>
     </div>
-    <div class="row">
-      <div class="col-25">
-        <label for="email">Podaj emaila</label>
+    <div className="row">
+      <div className="mb-3">
+        <label htmlFor="lname" className="form-label">Podaj nazwisko</label>
       </div>
-      <div class="col-75">
-      <input className="email" name="email" value={email} onChange={onChange} type="email" required/>
+      <div className="mb-3">
+        <input type="text" id="lname" className="form-text" name="surname" onChange={onChange} value={surname} placeholder="Your last name.."/>
+      </div>
+    </div>
+    <div className="row">
+      <div className="mb-3">
+        <label htmlFor="email" className="form-label" >Podaj emaila</label>
+      </div>
+      <div className="mb-3">
+      <input name="email" className="form-text" value={email} onChange={onChange} type="email" required/>
                 {invalidFields.email && <p className="error">{invalidFields.email}</p>}
                 {emailAvailable.status && <p>{emailAvailable.status}</p>}
                 <input type="button" className="send" value="check Email" onClick={checkEmailAvailable} disabled={!email} />
                 <br></br>
       </div>
     </div>
-    <div class="row">
-      <div class="col-25">
-        <label for="password">Podaj hasło</label>
+    <div className="row">
+      <div className="mb-3">
+        <label htmlFor="password" className="form-label" >Podaj hasło</label>
       </div>
-      <div class="col-75">
-      <input className="password" name="password" value={password} onChange={onChange} type="password" required/>
+      <div className="mb-3">
+      <input className="form-control" name="password" value={password} onChange={onChange} type="password" required/>
                 {invalidFields.password && <p className="error">{invalidFields.password}</p>}
       </div>
     </div>
     <br></br>
     <br></br>
-    <div class="row">
-    <input className="send" type="submit" disabled={Object.keys(invalidFields).length} value="Register"/>
+    <div className="row">
+    <input className="btn btn-primary" type="submit" disabled={Object.keys(invalidFields).length} value="Register"/>
     </div>
   </form>
 </div>

@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import {LinkContainer} from 'react-router-bootstrap'
+import {Navbar, Nav} from 'react-bootstrap'
 
 
 export const Header = () => {
@@ -17,9 +19,9 @@ export const Header = () => {
       }
     return (
     <header className="App-header">
-      <div className="menu">
+      <div className="mb-3">
             {loggedIn ? <Link to="/book"> <button type="button" > Zarezerwuj termin </button> </Link> : null}
-    {loggedIn ? <Link to="/reject"><button type="button" > Odwołanie rezerwacji </button>  </Link> : null}
+    {loggedIn ? <Link to="/reject"><button type="button"  > Odwołanie rezerwacji </button>  </Link> : null}
     {loggedIn ? <Link to="/my"> <button type="button" > O nas </button></Link> : null}
     {loggedIn ? <Link to="/contact"> <button type="button" > Kontakt </button> </Link> : null}
     {loggedIn ? <Link to="/sale"> <button type="button" > Cennik </button> </Link> : null}

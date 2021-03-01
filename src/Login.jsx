@@ -84,24 +84,24 @@ const onChange = ({ target }) => {
 
     return (
       <div className="App">
-        <h1>Logowanie</h1>
         <header className="App-header">
         <div class="container">
+          <p className="h1">Logowanie </p>
         <form onSubmit = {onSubmit}>
     <div className="row">
-      <div className="col-25">
+      <div className="mb-3">
         <label htmlfor="fname">Podaj emaila</label>
       </div>
-      <div className="col-75">
+      <div className="mb-3">
       <input id="email" className="log" name="email" type="text" onChange={onChange}/>
               {error.email && <span style={{color: "red", marginTop: '5px'}}>Email jest wymagany</span>}
       </div>
     </div>
     <div className="row">
-      <div className="col-25">
+      <div className="mb-3">
         <label htmlfor="lname">Podaj hasło</label>
       </div>
-      <div className="col-75">
+      <div className="mb-3">
       <input id="pas" className="pas" type="password" name="password" onChange={onChange} />
             {error.password && <span style={{color: "red", marginTop: '5px'}}>Hasło jest wymagane</span>}
             <Link to="/forgot"> <button type="button"> Zapomniałem hasła </button> </Link> 
