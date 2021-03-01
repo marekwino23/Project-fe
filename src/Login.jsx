@@ -85,7 +85,7 @@ const onChange = ({ target }) => {
     return (
       <div className="App">
         <header className="App-header">
-        <div className="container">
+        <div>
           <p className="h1">Logowanie </p>
         <form onSubmit = {onSubmit}>
     <div className="row">
