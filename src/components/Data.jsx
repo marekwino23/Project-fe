@@ -6,6 +6,7 @@ const Data = ({}) => {
 const history = useHistory();  
 const [booking, setBooking] = useState('');
 const [hour, setHour] = useState('');
+const [service, setService] = useState('');
 const [as, setAs] = useState('')
 const [read, setRead] = useState('')
 const user = JSON.parse(sessionStorage.getItem('user'));
@@ -64,21 +65,22 @@ const onClick = async () => {
   }
      
 useEffect(() => {
-    async function fetchData() {
-      const res =  await fetch(`${process.env.REACT_APP_API}/info/${id}`, {
+      const { id } = JSON.parse(sessionStorage.getItem('user'))
+      const res =  fetch(`${process.env.REACT_APP_API}/info/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
         credentials: 'include',
       })
-      return await res.json();
-    }
-    const { id } = JSON.parse(sessionStorage.getItem('user'))
-    const data = fetchData();
-    console.log('data: ' , data);
-    // setBooking(data[0].rezerwacja);
-    // setHour(data[0].godzina); 
+      .then(response => response.json())
+.then(data => {
+  console.log('Success:', data);
+  setBooking(data[0].date);
+    setHour(data[0].hour); 
+    setService(data[0].service); 
+})
+    
 },[]);
 
 return(
@@ -87,16 +89,23 @@ return(
 <div id="create">
       <h2>Edit user</h2>
           <label>Name</label>
-          <input type="text" name="name" value={user.name}/>
+          <input type="text" name="name" defaultValue={user.name}/>
         <label>Surname </label>
-        <input type="text" name="surname" value={user.surname}/>
+        <input type="text" name="surname" defaultValue={user.surname}/>
         <label>Email </label>
-        <input type="email" name="email" id="email"  onChange={handleChange} value={as} />
+        <input type="email" name="email" id="email" onChange={handleChange} value={as} />
         <input type="submit" value="Change email" onClick={onClick}/>
         <br></br>
         <label>Password</label>
         <input type="password" name="password" onChange={inputChange} value={read} required min="8" />
         <input type="button" value="Change password" onClick={onPass}/>
+        <br></br>
+        <br></br>
+       <p>Data rezerwacji</p> <input type="text" readOnly name="surname" value={booking}/>
+        <br></br>
+        <p>Godzina rezerwacji</p> <input type="text" readOnly name="surname" value={hour}/>
+        <br></br>
+        <p>Wybrana usluga</p> <input type="text" readOnly name="surname" value={service}/>
         </div>
         </div>
 )}

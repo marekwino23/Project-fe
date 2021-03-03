@@ -5,7 +5,7 @@ const List = () =>{
   const history = useHistory()
   const[users, setUsers] = useState([]);
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_API}/list`, {
+        const res = fetch(`${process.env.REACT_APP_API}/list`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -19,7 +19,7 @@ const List = () =>{
               setUsers(data)
           }); 
         
-    },[ users ]);
+    },[ ]);
 
     const onEdit = (id) => {
       console.log(id)
@@ -59,9 +59,9 @@ return(
       <th>name</th>
       <th>surname</th>
       <th>email</th>
-      <th>rezerwacja</th>
-      <th>godzina</th>
-      <th>type</th>
+      <th>date</th>
+      <th>hour</th>
+      <th>service</th>
       <th>action</th>
     </tr>
 </thead>
@@ -72,11 +72,11 @@ return(
     <td>{user.name}</td>
     <td>{user.surname}</td>
     <td>{user.email}</td>
-    <td>{user.rezerwacja}</td>
-    <td>{user.godzina}</td>
-    <td>{user.type}</td>
-    <input type="button" onClick={() => deleteUser(user.id)} value="delete user"></input>
-    <input type="button"  onClick={() => onEdit(user.id)} value="edit user"></input>
+    <td>{user.date}</td>
+    <td>{user.hour}</td>
+    <td>{user.service}</td>
+    <button onClick={() => deleteUser(user.id)}>Delete user</button>
+    <button  onClick={() => onEdit(user.id)} >Edit user</button>
   </tr>
   ))}
 </tbody>
