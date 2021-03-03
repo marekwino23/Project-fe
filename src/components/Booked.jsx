@@ -11,6 +11,7 @@ const Booked = () => {
     const [data, setData] = useState('');
     const [time, setTime] = useState('');
     const [items, setItems] = useState('');
+    const [service, setService] = useState('');
 
     console.log('time: ', time);
 
@@ -20,12 +21,12 @@ const Booked = () => {
         const data = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
         history.push('/me');
          res =  await fetch(`${process.env.REACT_APP_API}/rez`, {
-            method: 'POST',
+            method: 'PATCH',
             headers: {
               'Content-Type': 'application/json',
             },
             credentials: 'include',
-            body: JSON.stringify({id, time, data})
+            body: JSON.stringify({id, time, data, service})
           });
           const information = await res.json()
           console.log(information.info)
@@ -59,7 +60,7 @@ const Booked = () => {
         const currentDate = useMemo(() => new Date(date), [date]);
 
         const handleChange = (e) =>{
-        setData(e.target.value)
+        setService(e.target.value)
         console.log(e.target.value)
         }
     
@@ -103,7 +104,7 @@ return (
       />
         </div>
 <div className="container">
-      <select className="form-control" value={data} onChange={handleChange}>
+      <select className="form-control" value={service} onChange={handleChange}>
         <option></option>
         <option>Obcinanie włosów-30zł</option>
         <option>Farbowanie włosów-40zł</option>
@@ -111,9 +112,7 @@ return (
       </select>
     </div>
       <button className="form-check" onClick={onClick}>Wybierz</button>
-      <button className="form-check"  onClick={onBusy}>Sprawdz czy dana godzina jest wolna</button>
       <br></br>
-      <p>{items.status}</p>
     </div>
   )
 }

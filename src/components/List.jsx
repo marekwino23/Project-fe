@@ -62,6 +62,7 @@ return(
       <th>rezerwacja</th>
       <th>godzina</th>
       <th>type</th>
+      <th>action</th>
     </tr>
 </thead>
 <tbody>

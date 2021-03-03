@@ -22,16 +22,16 @@ h1{
   bottom: 307px;
 }
 
-table{
+/* table{
 border: white solid 2px;
 color: white;
-width: 400px;
+width: 20%;
 height: 400px;
 font-size: 28px;
 position: fixed;
 bottom: 4px;
 left: 561px;
-}
+} */
 
 
 input[type=text]{
@@ -134,12 +134,64 @@ div.me {
   text-shadow: 2px -2px 0 #286652;
 }
 
+#name {
+  margin-left: 29px;
+}
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  box-sizing: border-box;
+}
+input[type=email], [type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  box-sizing: border-box;
+}
+input[type=submit] {
+  width: 100%;
+  background-color: #467b48;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+label{
+  color:white;
+}
+.button{
+  background-color: #83D687; /* Green */
+  border: none;
+  color: white;
+  margin-left: 9px;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+input[type=button]:hover {
+  background-color: #45a049;
+}
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+div {
+  border-radius: 5px;
+  padding: 20px;
+}
+
 button{
   width: 100%;
   color:white;
   font-weight: bold;
   background-color: rgb(68 185 147);
-  height: 50px;
+  height: 100%;
   margin-top: 22px;
 }
 
