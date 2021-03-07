@@ -108,10 +108,10 @@ const Registration = () => {
     </div>
     <div className="row">
       <div className="mb-3">
-        <label htmlFor="email" className="form-label" >Podaj emaila</label>
+        <label htmlFor="email" className="form-label" >Podaj email</label>
       </div>
       <div className="mb-3">
-      <input name="email" className="form-text" value={email} onChange={onChange} type="email" required/>
+      <input name="email" className="form-text" value={email} onChange={onChange} id="email" type="email" required/>
                 {invalidFields.email && <p className="error">{invalidFields.email}</p>}
                 {emailAvailable.status && <p>{emailAvailable.status}</p>}
                 <input type="button" className="send" value="check Email" onClick={checkEmailAvailable} disabled={!email} />
@@ -120,17 +120,17 @@ const Registration = () => {
     </div>
     <div className="row">
       <div className="mb-3">
-        <label htmlFor="password" className="form-label" >Podaj hasło</label>
+        <label htmlFor="password" className="form-label">Podaj hasło</label>
       </div>
       <div className="mb-3">
-      <input className="form-control" name="password" value={password} onChange={onChange} type="password" required/>
+      <input className="form-control" name="password" value={password} onChange={onChange} id="password" type="password" required/>
                 {invalidFields.password && <p className="error">{invalidFields.password}</p>}
       </div>
     </div>
     <br></br>
     <br></br>
     <div className="row">
-    <input className="btn btn-primary" type="submit" disabled={Object.keys(invalidFields).length} value="Register"/>
+    <input className="btn btn-primary" type="submit" disabled={Object.keys(invalidFields).length,!checkEmailAvailable} value="Register"/>
     </div>
   </form>
 </div>
