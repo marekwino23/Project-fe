@@ -57,7 +57,7 @@ const Registration = () => {
     console.log('res: ', res);
     if(res.status > 300 ) return;
     const data = await res.json();
-    data.status === 'success' && cogoToast.success('user was successfully creaed. You can now log in', {
+    data.status === 'success' && cogoToast.success('user was successfully created. You can now log in', {
       timeout: 5000
     });
     history.push('/login');

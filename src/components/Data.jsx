@@ -78,9 +78,9 @@ useEffect(() => {
       .then(response => response.json())
 .then(data => {
   console.log('Success:', data);
-  setBooking(data[0].date);
-    setHour(data[0].hour); 
-    setService(data[0].service); 
+  setBooking(data.date);
+    setHour(data.time); 
+    setService(data.service); 
 })
     
 },[]);

@@ -37,9 +37,15 @@ const onErase = async () => {
 
 
 const changeHour = async () => {
+  if(time === ''|| hour !== '' ){
+    cogoToast.info("lack of changes")
+  }
+  else if(hour === ''){
+    cogoToast.info("if you want change hour the at first you must make book")
+  }
+  else{
     let res;
     const { id } = JSON.parse(sessionStorage.getItem('user'));
-    history.push('/me');
      res =  await fetch(`${process.env.REACT_APP_API}/changed`, {
         method: 'PATCH',
         headers: {
@@ -49,6 +55,9 @@ const changeHour = async () => {
         credentials: 'include',
         body: JSON.stringify({ booking, id, time }),
       });
+      cogoToast.success("Changes success")
+      history.push('/me');
+  }   
 }
 
 useEffect(()=>{
@@ -67,18 +76,18 @@ useEffect(()=>{
       cogoToast.info("lack of date and time")
     }
     else if(data.status === "success"){
-      setBooking(data[0].date);
-      setHour(data[0].hour);
+      setBooking(data.date);
+      setHour(data.time);
     }
     })
 },[])
 
     return (
         <div className="container">
-            <p className="h2"> Data rezerwacji: {booking} </p>
-            <p className="h2"> Godzina rezerwacji: {hour} </p>
-            <button type="button" onClick={onErase} className="form-control"> Usuń rezerwacje</button>
-            <button type="button"  onClick={changeHour} className="form-control"> Zmień godzine</button>
+            <p className="h2"> Date booking: {booking} </p>
+            <p className="h2"> Hour booking: {hour} </p>
+            <button type="button" onClick={onErase} className="form-control"> Delete booking</button>
+            <button type="button"  onClick={changeHour} className="form-control"> Check hours</button>
             <div className="container">
             <TimePicker onChange={setTime} value={time} minTime="10:00:00" maxTime="18:00:00"/>
             </div>

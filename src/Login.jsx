@@ -43,6 +43,7 @@ const onChange = ({ target }) => {
     const v = validateFields({ email, password });
     if(v.email || v.password) {
       setError(v);
+      cogoToast.info("please fill out the forma")
       return;
     } 
 
@@ -63,7 +64,6 @@ const onChange = ({ target }) => {
     if(res?.status > 300 ) return;
     const data = await res.json();
     setUser(data.user);
-    sessionStorage.setItem('type', data.type)
     console.log(type)
     } catch(error) {
       dispatch({ type: 'ERROR', payload: true });

@@ -17,17 +17,17 @@ export const Header = () => {
       }
     return (
     <header className="App-header">
-          {loggedIn ? <Link to="/book"> <button type="button" >Zarezerwuj</button> </Link> :null }
-          {loggedIn ?  <Link to="/reject"><button type="button"  > Odwołanie </button>  </Link> :null  }
-    {loggedIn ?  <Link to="/my"> <button type="button" > O nas </button></Link> : null}
-    {loggedIn ?  <Link to="/contact"> <button type="button" > Kontakt </button> </Link> : null}
-    {loggedIn ?  <Link to="/sale"> <button type="button" > Cennik </button> </Link> : null}
+          {loggedIn ? <Link to="/book"> <button type="button" >Book</button> </Link> :null }
+          {loggedIn ?  <Link to="/reject"><button type="button"  > Reject </button>  </Link> :null  }
+    {loggedIn ?  <Link to="/my"> <button type="button" > Me </button></Link> : null}
+    {loggedIn ?  <Link to="/contact"> <button type="button" > Contact </button> </Link> : null}
+    {loggedIn ?  <Link to="/sale"> <button type="button" > Sale </button> </Link> : null}
     {loggedIn ?  <div className="account">{`Hello ${name}`}</div> : null}
-    {loggedIn ?  <button type="button"><Link to="/me"> Konto użytkownika</Link> </button> : null}
-    {loggedIn  ?   <button type="button"><Link to="/list"> Lista użytkowników</Link> </button> : null}
-    {loggedIn ?   <button type="button" onClick={onClick} > Wyloguj </button> : null}
-    {loggedIn ? null : <Link to="/register"> <button style={{marginTop:"48px"}}> Rejestracja </button> </Link>}
-    {loggedIn ? null : <Link to="/login"> <button style={{marginTop:"48px"}}> Logowanie </button> </Link>}
+    {loggedIn ?  <button type="button"><Link style={{color:"white"}} to="/me"> User account</Link> </button> : null}
+    {loggedIn  ?   <button type="button"><Link style={{color:"white"}} to="/list"> List users</Link> </button> : null}
+    {loggedIn ?   <button style={{height:"100%"}} type="button" onClick={onClick} > Logout </button> : null}
+    {loggedIn ? null : <Link to="/register"> <button style={{marginTop:"48px"}}> Register </button> </Link>}
+    {loggedIn ? null : <Link to="/login"> <button style={{marginTop:"48px"}}> Login </button> </Link>}
     </header>
     );
 }

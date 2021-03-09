@@ -20,13 +20,12 @@ const Booked = () => {
         let res;
         const { id } = JSON.parse(sessionStorage.getItem('user'));
         const data = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
-        console.log(date,time,service)
+        console.log(data,time,service)
         if(date === '' || time === '' || service === ''){
-          cogoToast.success('Prosze wypełnić wszystkie pola', {
+          cogoToast.info('Prosze wypełnić wszystkie pola', {
       });
         }
         else if(date !== '' && time !== '' && service !== '' ){
-            history.push('/me');
              res =  await fetch(`${process.env.REACT_APP_API}/rez`, {
                 method: 'POST',
                 headers: {
@@ -41,7 +40,7 @@ const Booked = () => {
                 cogoToast.success(information.info)
                   }
               else {
-              cogoToast.success('Dziękuje za rezerwacje', {
+              cogoToast.success('Thanks for booking', {
               timeout: 5000
         });
       }        
@@ -98,7 +97,7 @@ const Booked = () => {
 return (
     <div>
         <div className="container">
-            <p className="h1"> Wybierz termin </p>
+            <p className="h1"> Choose date </p>
         <DatePicker
         minDate={today}
         required
@@ -119,14 +118,14 @@ return (
 <div className="container">
       <select className="form-control" value={service} onChange={handleChange}>
         <option></option>
-        <option>Obcinanie włosów-30zł</option>
-        <option>Farbowanie włosów-40zł</option>
-        <option>Umycie włosów-20zł</option>
+        <option>Cut hairs-30zł</option>
+        <option>Colored hairs-40zł</option>
+        <option>Clean hairs-20zł</option>
       </select>
     </div>
-    <button className="form-check" onClick={onClick}>Wybierz</button>
+    <button className="form-check" onClick={onClick}>Choose</button>
     <p>{data}</p>
-      <button className="form-check" onClick={onBusy}>Sprawdz wybrany termin</button>
+      <button className="form-check" onClick={onBusy}>Check this date</button>
       <br></br>
     </div>
   )
