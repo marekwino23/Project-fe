@@ -4,6 +4,7 @@ import cogoToast from 'cogo-toast';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useHistory } from 'react-router-dom';
+import { getDate, getHours } from 'date-fns';
 
 const Booked = () => {
     const history = useHistory();
@@ -19,43 +20,55 @@ const Booked = () => {
         let res;
         const { id } = JSON.parse(sessionStorage.getItem('user'));
         const data = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
-        history.push('/me');
-         res =  await fetch(`${process.env.REACT_APP_API}/rez`, {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            credentials: 'include',
-            body: JSON.stringify({id, time, data, service})
-          });
-          const information = await res.json()
-          console.log(information.info)
-          if(information.info === "incorrect hour because you can t choose past time"){
-            alert(information.info)
-              }
-
-          else {
-          cogoToast.success('Dziękuje za rezerwacje', {
-          timeout: 1000
-    });
-  }
-  }
+        console.log(date,time,service)
+        if(date === '' || time === '' || service === ''){
+          cogoToast.success('Prosze wypełnić wszystkie pola', {
+      });
+        }
+        else if(date !== '' && time !== '' && service !== '' ){
+            history.push('/me');
+             res =  await fetch(`${process.env.REACT_APP_API}/rez`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+                body: JSON.stringify({id, time, data, service})
+              });
+              const information = await res.json()
+              console.log(information.info)
+              if(information.info === "incorrect hour because you can t choose past time"){
+                cogoToast.success(information.info)
+                  }
+              else {
+              cogoToast.success('Dziękuje za rezerwacje', {
+              timeout: 5000
+        });
+      }        
+   }
+ }
 
     const onBusy = async () => {
+      const { id } = JSON.parse(sessionStorage.getItem('user'));
+      console.log(date,time)
       let res;
-       res =  await fetch(`${process.env.REACT_APP_API}/busy`, {
-          method: 'POST',
+       res =  await fetch(`${process.env.REACT_APP_API}/busy/${time}`, {
+          method: 'GET',
           headers: {
             'Content-Type': 'application/json',
           },
           credentials: 'include',
-          body: JSON.stringify({time})
-        });
+       })
         const data = await res.json();
-        alert(data.status)
         setItems(data);
+        if(data.status == "failed"){
+         cogoToast.warn("this time is busy")
+        }
+        else{
+          cogoToast.info(" this time free")
+        }
+      
       }
-
         const today = useMemo(() => new Date(), []);
         const currentDate = useMemo(() => new Date(date), [date]);
 
@@ -111,7 +124,9 @@ return (
         <option>Umycie włosów-20zł</option>
       </select>
     </div>
-      <button className="form-check" onClick={onClick}>Wybierz</button>
+    <button className="form-check" onClick={onClick}>Wybierz</button>
+    <p>{data}</p>
+      <button className="form-check" onClick={onBusy}>Sprawdz wybrany termin</button>
       <br></br>
     </div>
   )

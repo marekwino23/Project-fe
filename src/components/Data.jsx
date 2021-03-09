@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 const Data = ({}) => {
+  const { email } = JSON.parse(sessionStorage.getItem('user'));
+  const { password } = JSON.parse(sessionStorage.getItem('user'));
 const history = useHistory();  
 const [booking, setBooking] = useState('');
 const [hour, setHour] = useState('');
@@ -66,7 +68,7 @@ const onClick = async () => {
      
 useEffect(() => {
       const { id } = JSON.parse(sessionStorage.getItem('user'))
-      const res =  fetch(`${process.env.REACT_APP_API}/info/${id}`, {
+      fetch(`${process.env.REACT_APP_API}/info/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -93,7 +95,7 @@ return(
         <label>Surname </label>
         <input type="text" name="surname" defaultValue={user.surname}/>
         <label>Email </label>
-        <input type="email" name="email" id="email" onChange={handleChange} value={as} />
+        <input type="email" name="email" id="email" onChange={handleChange} placeholder={email} value={as} />
         <input type="submit" value="Change email" onClick={onClick}/>
         <br></br>
         <label>Password</label>

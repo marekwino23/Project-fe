@@ -1,3 +1,4 @@
+import cogoToast from 'cogo-toast';
 import React, {useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import TimePicker from 'react-time-picker';
@@ -10,18 +11,28 @@ const Rejected = () => {
 
 
 const onErase = async () => {
+  if(booking === '' || hour === ''){
+    cogoToast.error("Delete failed because lack of date and time")
+  }
+  else{
     let res;
     const { id } = JSON.parse(sessionStorage.getItem('user'));
-    history.push('/me');
      res =  await fetch(`${process.env.REACT_APP_API}/erase`, {
-        method: 'PATCH',
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
         },
         credentials: 'include',
         body: JSON.stringify({ id }),
-      });
+      })
+      .then(response => response.json())
+      .then(data => {
+      if(data.status === "success"){
+        alert("Delete success")
+      }
+  })
+ }
 }
 
 
@@ -52,8 +63,13 @@ useEffect(()=>{
     .then(response => response.json())
     .then(data => {
     console.log('data: ' , data);
-    setBooking(data[0].rezerwacja);
-    setHour(data[0].godzina);
+    if(data.status === "lack"){
+      cogoToast.info("lack of date and time")
+    }
+    else if(data.status === "success"){
+      setBooking(data[0].date);
+      setHour(data[0].hour);
+    }
     })
 },[])
 
