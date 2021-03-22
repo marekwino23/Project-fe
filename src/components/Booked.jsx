@@ -3,6 +3,8 @@ import TimePicker from 'react-time-picker';
 import cogoToast from 'cogo-toast';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import obrazek from "../calendar-512.webp";
+import barber from "../photo.jpg";
 import { useHistory } from 'react-router-dom';
 import { getDate, getHours } from 'date-fns';
 
@@ -37,30 +39,31 @@ const Booked = () => {
               const information = await res.json()
               console.log(information.info)
               if(information.info === "incorrect hour because you can t choose past time"){
-                cogoToast.success(information.info)
+                cogoToast.info(information.info)
                   }
               else {
               cogoToast.success('Thanks for booking', {
               timeout: 5000
         });
+        history.push("/me")
       }        
    }
  }
 
     const onBusy = async () => {
-      const { id } = JSON.parse(sessionStorage.getItem('user'));
-      console.log(date,time)
+      const data = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
+      console.log(data,time)
       let res;
-       res =  await fetch(`${process.env.REACT_APP_API}/busy/${time}`, {
+       res =  await fetch(`${process.env.REACT_APP_API}/busy/${time}/${data}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
           },
           credentials: 'include',
        })
-        const data = await res.json();
-        setItems(data);
-        if(data.status == "failed"){
+        const element = await res.json();
+        setItems(element);
+        if(element.status == "failed"){
          cogoToast.warn("this time is busy")
         }
         else{
@@ -97,6 +100,7 @@ const Booked = () => {
 return (
     <div>
         <div className="container">
+          <img src={obrazek} alt="calendar"></img>
             <p className="h1"> Choose date </p>
         <DatePicker
         minDate={today}

@@ -1,6 +1,7 @@
 import cogoToast from 'cogo-toast';
 import React, {useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
+import obrazek from "../calendar-512.webp";
 import TimePicker from 'react-time-picker';
 
 const Rejected = () => {
@@ -29,7 +30,8 @@ const onErase = async () => {
       .then(response => response.json())
       .then(data => {
       if(data.status === "success"){
-        alert("Delete success")
+        cogoToast.success("Delete success")
+        history.push("/me")
       }
   })
  }
@@ -37,13 +39,6 @@ const onErase = async () => {
 
 
 const changeHour = async () => {
-  if(time === ''|| hour !== '' ){
-    cogoToast.info("lack of changes")
-  }
-  else if(hour === ''){
-    cogoToast.info("if you want change hour the at first you must make book")
-  }
-  else{
     let res;
     const { id } = JSON.parse(sessionStorage.getItem('user'));
      res =  await fetch(`${process.env.REACT_APP_API}/changed`, {
@@ -56,8 +51,7 @@ const changeHour = async () => {
         body: JSON.stringify({ booking, id, time }),
       });
       cogoToast.success("Changes success")
-      history.push('/me');
-  }   
+      history.push('/me');  
 }
 
 useEffect(()=>{
@@ -84,10 +78,11 @@ useEffect(()=>{
 
     return (
         <div className="container">
+           <img src={obrazek} alt="calendar"></img>
             <p className="h2"> Date booking: {booking} </p>
             <p className="h2"> Hour booking: {hour} </p>
             <button type="button" onClick={onErase} className="form-control"> Delete booking</button>
-            <button type="button"  onClick={changeHour} className="form-control"> Check hours</button>
+            <button type="button"  onClick={changeHour} className="form-control"> Change hours</button>
             <div className="container">
             <TimePicker onChange={setTime} value={time} minTime="10:00:00" maxTime="18:00:00"/>
             </div>

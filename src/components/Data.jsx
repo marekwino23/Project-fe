@@ -77,10 +77,13 @@ useEffect(() => {
       })
       .then(response => response.json())
 .then(data => {
-  console.log('Success:', data);
-  setBooking(data.date);
-    setHour(data.time); 
-    setService(data.service); 
+  let datas = data.result
+  datas.map((item) => {
+    setBooking(item.date)
+    setHour(item.hour)
+    setService(item.service)
+  }
+  )
 })
     
 },[]);
@@ -103,11 +106,11 @@ return(
         <input type="button" value="Change password" onClick={onPass}/>
         <br></br>
         <br></br>
-       <p>Data rezerwacji</p> <input type="text" readOnly name="surname" value={booking}/>
+       <p>Data rezerwacji</p> <input type="text" readOnly value={booking}/>
         <br></br>
-        <p>Godzina rezerwacji</p> <input type="text" readOnly name="surname" value={hour}/>
+        <p>Godzina rezerwacji</p> <input type="text" readOnly  value={hour}/>
         <br></br>
-        <p>Wybrana usluga</p> <input type="text" readOnly name="surname" value={service}/>
+        <p>Wybrana usluga</p> <input type="text" readOnly  value={service}/>
         </div>
         </div>
 )}
