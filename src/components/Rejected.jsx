@@ -49,9 +49,19 @@ const changeHour = async () => {
         },
         credentials: 'include',
         body: JSON.stringify({ booking, id, time }),
-      });
-      cogoToast.success("Changes success")
-      history.push('/me');  
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.status)
+        if(data.error === "failed"){
+          cogoToast.error("This time is busy")
+          history.push("/me")
+        }
+        else if(data.status === "success"){
+          cogoToast.success("Update success")
+          history.push("/me")
+        }
+    })   
 }
 
 useEffect(()=>{

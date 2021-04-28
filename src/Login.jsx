@@ -103,8 +103,7 @@ const onChange = ({ target }) => {
       </div>
       <div className="mb-3">
       <input id="pas" className="pas" type="password" name="password" onChange={onChange} />
-            {error.password && <span style={{color: "red", marginTop: '5px'}}>Hasło jest wymagane</span>}
-            <Link to="/forgot"> <button type="button"> Zapomniałem hasła </button> </Link> 
+            {error.password && <span style={{color: "red", marginTop: '5px'}}>Hasło jest wymagane</span>} 
       </div>
     </div>
     <input className="send"type="submit" value="Log in"/>

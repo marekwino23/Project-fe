@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 
 export const Header = () => {
     const loggedIn = sessionStorage.getItem('loggedIn');
-    const { name } = sessionStorage.getItem('user') ? JSON.parse(sessionStorage.getItem('user')) : { name: ''};
+    const user = sessionStorage.getItem('user');
+    const { name, typeUser } = user ? JSON.parse(user) : { name: '', typeUser: 'user'};
     const onClick = async () => {
         try {
           await fetch(`${process.env.REACT_APP_API}/logout`);
@@ -15,6 +16,8 @@ export const Header = () => {
     
         }
       }
+
+      console.log(user)
     return (
     <header className="App-header">
           {loggedIn ? <Link to="/book"> <button type="button" >Book</button> </Link> :null }
@@ -24,8 +27,8 @@ export const Header = () => {
     {loggedIn ?  <Link to="/sale"> <button type="button" > Sale </button> </Link> : null}
     {loggedIn ?  <div className="account">{`Hello ${name}`}</div> : null}
     {loggedIn ?  <button type="button"><Link style={{color:"white"}} to="/me"> User account</Link> </button> : null}
-    {loggedIn  ?   <button type="button"><Link style={{color:"white"}} to="/list"> List users</Link> </button> : null}
-    {loggedIn ?   <button style={{height:"100%"}} type="button" onClick={onClick} > Logout </button> : null}
+    {loggedIn && typeUser === "Admin" ? <button type="button"><Link style={{color:"white"}} to="/list"> List users</Link> </button> : null}
+    {loggedIn ?  <button style={{height:"100%"}} type="button" onClick={onClick} > Logout </button> : null}
     {loggedIn ? null : <Link to="/register"> <button style={{marginTop:"48px"}}> Register </button> </Link>}
     {loggedIn ? null : <Link to="/login"> <button style={{marginTop:"48px"}}> Login </button> </Link>}
     </header>

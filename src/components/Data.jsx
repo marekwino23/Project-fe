@@ -77,13 +77,16 @@ useEffect(() => {
       })
       .then(response => response.json())
 .then(data => {
-  let datas = data.result
-  datas.map((item) => {
-    setBooking(item.date)
-    setHour(item.hour)
-    setService(item.service)
+  if(data.status === "success"){
+    data.result.map((item) => {
+      setBooking(item.date)
+      setHour(item.hour)
+      setService(item.service)
+    })
   }
-  )
+ else{
+   console.log("lack")
+ }
 })
     
 },[]);

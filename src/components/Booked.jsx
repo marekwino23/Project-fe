@@ -4,14 +4,11 @@ import cogoToast from 'cogo-toast';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import obrazek from "../calendar-512.webp";
-import barber from "../photo.jpg";
 import { useHistory } from 'react-router-dom';
-import { getDate, getHours } from 'date-fns';
 
 const Booked = () => {
     const history = useHistory();
     const [date, setDate] = useState('');
-    const [data, setData] = useState('');
     const [time, setTime] = useState('');
     const [items, setItems] = useState('');
     const [service, setService] = useState('');
@@ -21,8 +18,8 @@ const Booked = () => {
     const onClick = async ({}) => {
         let res;
         const { id } = JSON.parse(sessionStorage.getItem('user'));
-        const data = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
-        console.log(data,time,service)
+        const fullDate = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
+        console.log(fullDate, time, service)
         if(date === '' || time === '' || service === ''){
           cogoToast.info('Prosze wypełnić wszystkie pola', {
       });
@@ -34,7 +31,7 @@ const Booked = () => {
                   'Content-Type': 'application/json',
                 },
                 credentials: 'include',
-                body: JSON.stringify({id, time, data, service})
+                body: JSON.stringify({id, time, date: fullDate, service})
               });
               const information = await res.json()
               console.log(information.info)
@@ -63,11 +60,14 @@ const Booked = () => {
        })
         const element = await res.json();
         setItems(element);
+        var bt = document.getElementById("book")
         if(element.status == "failed"){
          cogoToast.warn("this time is busy")
+         bt.disabled = true
         }
         else{
           cogoToast.info(" this time free")
+          bt.disabled = false
         }
       
       }
@@ -127,8 +127,7 @@ return (
         <option>Clean hairs-20zł</option>
       </select>
     </div>
-    <button className="form-check" onClick={onClick}>Choose</button>
-    <p>{data}</p>
+    <button className="form-check" id="book" onClick={onClick} disabled={items.l}>Choose</button>
       <button className="form-check" onClick={onBusy}>Check this date</button>
       <br></br>
     </div>

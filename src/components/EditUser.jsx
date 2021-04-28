@@ -66,21 +66,21 @@ return(
 <header className="App-header">
           <form onSubmit={onClick}>
               <div className="field">
-                <label htmlFor="">Podaj Imie</label>
+                <label>Podaj Imie</label>
                   <input className="name" name="name" onChange={onChange} value={name} type="text" required/>
               </div>
               <div className="field">
-                <label htmlFor=""> Podaj Nazwisko</label>
+                <label> Podaj Nazwisko</label>
                 <input className="surname" name="surname" onChange={onChange} value={user.surname} type="text" required/>
-             
               </div>
               <div className="field">
-                <label htmlFor="">Podaj emaila</label>
+                <label>Podaj emaila</label>
                 <input className="email" name="email" onChange={onChange} value={user.email} type="email" required/>
               </div>
               <div className="field">
                 <label>Podaj hasło</label>
-                <input className="password" name="password" onChange={onChange} value={user.password}  type="password" required/>
+                <input className="email" name="email" onChange={onChange} value={user.email} type="email" required/>
+                <input className="password" name="password" onChange={onChange} value={user.password} type="password" required/>
                 <input className="send" type="submit" value="Update"/>
               </div>
           </form>          
