@@ -79,7 +79,6 @@ return(
               </div>
               <div className="field">
                 <label>Podaj hasło</label>
-                <input className="email" name="email" onChange={onChange} value={user.email} type="email" required/>
                 <input className="password" name="password" onChange={onChange} value={user.password} type="password" required/>
                 <input className="send" type="submit" value="Update"/>
               </div>
