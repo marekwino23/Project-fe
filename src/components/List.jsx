@@ -15,7 +15,7 @@ const List = () =>{
           .then(response => response.json())
           .then(data => {
             console.log(data)
-              console.log(users)
+            console.log(users)
               setUsers(data)
           }); 
         
@@ -26,7 +26,6 @@ const List = () =>{
       history.push({pathname:`/edit/${id}`
     })
     }
-
 
     const deleteUser = (id) => {
       console.log('user id: ', id);
